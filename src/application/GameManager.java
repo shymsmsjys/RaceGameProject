@@ -1,20 +1,28 @@
 package application;
 
 public class GameManager {
-	//int currnetPlayer;
-	//Player player1 = new Player();
-	//player1.getId();
+
+	private final int [][] StartLine = new int [0][0];
+	private final int [][] FinishLine = new int [25][25];
+	private Player[] player = new Player[4];
 	
-	//player1.setLocation()
 	
+	// setup location to Starting Line, get name and number of players
 	public void setup() {
 		
 	}
+	// one turn, one throw dice and move the horses
 	public void run() {
 		
 	}
-	public void endGame() {
+	public boolean gameOver() {
+	
 		
+		return gameOver();
+	}
+	
+	public Player[] getPlayer() {
+		return player;
 	}
 
 }

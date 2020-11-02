@@ -44,7 +44,7 @@ public class Main extends Application {
 		btStart.setStyle("-fx-font-size: 30");
 
 
-		
+		Pane pane = new Pane();
 		
 		pane.getChildren().add(iv);
 			pane.getChildren().add(btStart);

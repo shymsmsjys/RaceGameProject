@@ -17,6 +17,7 @@ public class SpecialSkills {
 		return randNum;
 	}
 
+	// Randomly assign speical skills to the players
 	public void randomAssign (int player[]) {
 		
 		for (int i = 0; i < player.length; i++) {
