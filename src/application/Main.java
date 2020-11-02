@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	Board board;
 	
 	@Override
 	public void start(Stage primaryStage) {
