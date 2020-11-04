@@ -2,34 +2,47 @@ package application;
 
 public class Player {
 	
-	int [][] location;
+	int location;
 	private String name;
 	private  int id;
 	SpecialSkills specialSkills = new SpecialSkills();
-	Horse horse = new Horse();
+	Horse horse;
+	boolean isRunning = true;
 	
-	public Player(String inputName) {
+	public Player(int id) {
 		
 		//set name to inputed name
-		name = inputName;
+		this.id = id;
+		System.out.println("player" +id+ "is created" );
+		horse = new Horse(id);
 	}
 	
 	
-	public int dice() {
+	public void dice() {
 		int dice = 0;
 		int low = 1;
 		int high = 6;
 		dice = (int) (Math.random()*(high-low) + low);
-		
-		return dice; 
+		horse.updateLocation(dice); 
+		System.out.println("plyaer" +id + " rolled dice " + dice);
 	}
 	
 	
-	public int[][] calculateLocation () {
+	public void updateLocation (int num) {
 		// set Horse's location
-		return location;
+		
 	}
 	
+	public boolean isRunning() {
+		return isRunning;
+	}
+	public void setFinish() {
+		isRunning = false;
+	}
+	
+	public Horse getHorse() {
+		return horse;
+	}
 
 	
 }

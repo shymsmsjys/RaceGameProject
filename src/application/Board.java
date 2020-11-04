@@ -3,7 +3,7 @@ package application;
 public class Board {
 
 	// Create board
-	int [][] board = new int[25][25];
+	int board;
 	
 	Horse [] horse;
 	
