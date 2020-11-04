@@ -8,13 +8,6 @@ public class Board {
 	Horse [] horse;
 	
 	
-	public int[][] randLocation() {
-		
-		
-		return board;
-		
-	}
-	
 
 	public void move(boolean condition) {
 		
