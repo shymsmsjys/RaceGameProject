@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class GameManager extends Thread {
 	private static int MAX_PLAYER =4;
-    private static int FinalLine = 10;
 	private Player[] players;
 	Scanner sc = new Scanner(System.in);
 	private int playerNum = 0;

@@ -8,6 +8,7 @@ public class Horse {
 
 	public Horse(int id) {
 		this.id = id;
+		System.out.println("horse " + id + " is created");
 	}
 	
 	public int getLocation(){
