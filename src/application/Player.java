@@ -9,6 +9,13 @@ public class Player {
 	Horse horse;
 	boolean isRunning = true;
 	
+	static int PATH_FULL = 0;
+	static int PATH_1 = 1;
+	static int PATH_2 = 2;
+	static int PATH_3 = 3;
+	private int path = PATH_FULL;
+	private int goal[] = {20, 16, 11, 16};
+	
 	public Player(int id) {
 		
 		//set name to inputed name
@@ -23,14 +30,41 @@ public class Player {
 		int low = 1;
 		int high = 6;
 		dice = (int) (Math.random()*(high-low) + low);
-		horse.updateLocation(dice); 
-		System.out.println("plyaer" +id + " rolled dice " + dice);
+		 
+		System.out.println("\nplyaer" +id + " rolled dice " + dice);
+		updateLocation(dice);
+		check();
 	}
 	
 	
 	public void updateLocation (int num) {
 		// set Horse's location
+		horse.updateLocation(num);
 		
+		if (path == PATH_FULL ) {
+			if (horse.getLocation() == 5) {
+				path = PATH_1;
+				System.out.println("Path changed to Path1");
+			}
+			else if (horse.getLocation() == 10) {
+				path = PATH_3;
+				System.out.println("Path changed to Path3");
+			}
+		}
+		else if (path == PATH_1) {
+			if (horse.getLocation() == 8) {
+				path = PATH_2;
+				System.out.println("Path changed to Path2");
+			}
+		}
+		
+	}
+	
+	private void check() {
+		if (horse.getLocation() > goal[path]) {
+			setFinish();
+			System.out.println("Player" + id + " is finished");
+		}
 	}
 	
 	public boolean isRunning() {

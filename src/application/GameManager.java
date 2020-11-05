@@ -33,9 +33,9 @@ public class GameManager extends Thread {
 					if (players[i].isRunning()) {
 						players[i].dice();
 						
-						if (players[i].getHorse().getLocation() > 30) {
-							players[i].setFinish();
-						}
+//						if (players[i].getHorse().getLocation() > 30) {
+//							players[i].setFinish();
+//						}
 					}
 				}
 		}
