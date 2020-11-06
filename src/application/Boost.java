@@ -9,10 +9,10 @@ public class Boost extends Board{
 	}
 	
 	// Boost items are randomly located on the board
-	public int[][] randomlocation (int low, int high) {
-
-		return board;
-	}
+//	public int[][] randomlocation (int low, int high) {
+//
+//		return board;
+//	}
 	
 	// Boost item number varies from 1 to 6
 	public int randomFrom () {

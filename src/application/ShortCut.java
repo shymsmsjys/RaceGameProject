@@ -10,11 +10,11 @@ public class ShortCut extends Board{
 	
 	
 	// positions of shortcut on the board
-	public int[][] position() {
-		
-		return board;
-		
-	
-	}
+//	public int[][] position() {
+//		
+//		return board;
+//		
+//	
+//	}
 
 }

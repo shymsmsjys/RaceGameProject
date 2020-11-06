@@ -10,8 +10,8 @@ public class Obstacle extends Board{
 	}
 
 	// Obstacles are randomly located on the board
-	public int[][] randomlocation () {
-
-		return board;
-	}
+//	public int[][] randomlocation () {
+//
+//		return board;
+//	}
 }
