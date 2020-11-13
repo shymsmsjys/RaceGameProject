@@ -23,6 +23,7 @@ public class Horse {
 	}
 	public  void setLocation(int location) {
 		this.location = location;
+		System.out.println("horse " + id + " setLocation " + this.location);
 	}
 	
 	public String getColor() {

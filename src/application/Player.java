@@ -69,7 +69,7 @@ public class Player {
 	// Horse caught and go to starting line
 	public void Caught() {
 		horse.setLocation(0);
-		
+		System.out.println("Player" + id + " is caught. Go to starting line");
 	}
 	// Boost tile number give extra move to Horse
 	public int Boost() {;

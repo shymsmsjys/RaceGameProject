@@ -49,6 +49,7 @@ public class GameManager extends Thread {
 						}
 						
 						players[i].dice();
+						
 						if (players[i].getHorse().getLocation() == boostLocation1 || players[i].getHorse().getLocation() == boostLocation0) {
 							players[i].Boost();
 						}
@@ -56,9 +57,19 @@ public class GameManager extends Thread {
 							players[i].Obstacle(true);
 						
 						}
+						for (int j = 0; j < players.length; j++) {
+							//
+							if(j == i) {
+								continue;
+							}
+							if (players[i].getHorse().getLocation() == players[j].getHorse().getLocation()) {
+								players[j].Caught();
+							}	
 						}
-					
+						
 					}
+				
+				}
 						
 				
 		}
