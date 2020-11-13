@@ -1,3 +1,8 @@
+/* Name: Seongkwan Son
+ * Section: 01 DB
+ * Date Created: Nov 2nd, 2020
+ * Date Modifed: Nov 6th, 2020
+ */
 package application;
 
 public class Player {
@@ -8,7 +13,9 @@ public class Player {
 	SpecialSkills specialSkills = new SpecialSkills();
 	Horse horse;
 	boolean isRunning = true;
+	boolean atObstacle = false;
 	
+	// shortcut variables
 	static int PATH_FULL = 0;
 	static int PATH_1 = 1;
 	static int PATH_2 = 2;
@@ -24,7 +31,7 @@ public class Player {
 		horse = new Horse(id);
 	}
 	
-	
+	// dice ranging from 1 to 6
 	public void dice() {
 		int dice = 0;
 		int low = 1;
@@ -32,12 +39,12 @@ public class Player {
 		dice = (int) (Math.random()*(high-low) + low);
 		 
 		System.out.println("\nplyaer" +id + " rolled dice " + dice);
-		updateLocation(dice);
+		shortCut(dice);
 		check();
 	}
 	
 	
-	public void updateLocation (int num) {
+	public void shortCut (int num) {
 		// set Horse's location
 		horse.updateLocation(num);
 		
@@ -59,14 +66,36 @@ public class Player {
 		}
 		
 	}
-	
+	// Horse caught and go to starting line
+	public void Caught() {
+		horse.setLocation(0);
+		
+	}
+	// Boost tile number give extra move to Horse
+	public int Boost() {;
+		int num;
+		num = randomFrom(2, 5);
+		System.out.println(num + " boost tile increased the speed!!");
+		horse.updateLocation(num);
+		return location;
+	}
+	// Make player one turn skip
+	public void Obstacle(boolean on) {
+
+		atObstacle = on;
+		System.out.println("You are trapped at the obstacle. Skip one turn");
+		
+		
+		
+	}
+	// Check the state of horse finish or not
 	private void check() {
 		if (horse.getLocation() > goal[path]) {
 			setFinish();
 			System.out.println("Player" + id + " is finished");
 		}
 	}
-	
+	//  still running?
 	public boolean isRunning() {
 		return isRunning;
 	}
@@ -77,6 +106,18 @@ public class Player {
 	public Horse getHorse() {
 		return horse;
 	}
+	
+	public int randomFrom (int low, int high) {
 
+		int randNum = 0;
+
+		randNum = (int) (Math.random()*(high-low) + low);
+
+		return randNum;
+	}
+	
+	public boolean getatObstacle() {
+		return atObstacle;
+	}
 	
 }
