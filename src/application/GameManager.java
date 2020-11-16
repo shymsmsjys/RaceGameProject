@@ -1,7 +1,13 @@
 /* Name: Seongkwan Son
  * Section: 01 DB
  * Date Created: Nov 2nd, 2020
- * Date Modifed: Nov 6th, 2020
+ * Date Modifed: Nov 13th, 2020
+ * Description: GameManager generally manages all classes and details. GameManager will interact with GUI.
+ * Significant Methods/Attributes:
+ * setup(): create players and assign one horse for each player
+ * run(): run the dice rolling game and move the horse
+ * gameOver(): See every player's horse crossed the finish line. End game.
+ * 
  */
 package application;
 import java.util.Scanner;
@@ -24,14 +30,32 @@ public class GameManager extends Thread {
 			System.out.println("Obstacle tile is at " + obstacleLocation0);
 			obstacleLocation1 = randomFrom(1, 20);
 			System.out.println("Obstacle tile is at " + obstacleLocation1);
+			
+			
+			
 	}
 		
 	// setup location to Starting Line, get name and number of players
 	public void setup() {
 		players = new Player[MAX_PLAYER];
 		for (int i = 0; i < players.length; i++) {
-			players[i] = new Player(i);
+//			players[i] = new Player(i);
+			int SkillNum;
+			SkillNum = randomFrom(1,4);
+			if (SkillNum == 1) {
+				players[i] = new RocketMan(i);
+				
+			}
+			else if (SkillNum == 2) {
+				players[i] = new Invisible(i);
+			}
+			
+			else if (SkillNum == 3) {
+				players[i] = new Unstoppable(i);
+			}
 		}
+		
+
 
 		
 	}
@@ -44,7 +68,7 @@ public class GameManager extends Thread {
 					if (players[i].isRunning()) {
 						if (players[i].getatObstacle() == true) {
 							players[i].Obstacle(false);
-							System.out.println("players"+i + "is out of obstacle now");
+							System.out.println("players"+i + " is out of obstacle now");
 							continue;
 						}
 						

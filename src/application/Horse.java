@@ -1,7 +1,10 @@
 /* Name: Seongkwan Son
  * Section: 01 DB
  * Date Created: Nov 2nd, 2020
- * Date Modifed: Nov 6th, 2020
+ * Date Modifed: Nov 13th, 2020
+ * Description: contains feature of horse
+ * Significant Methods/Attributes:
+
  */
 package application;
 

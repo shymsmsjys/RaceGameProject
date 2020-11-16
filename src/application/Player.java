@@ -1,7 +1,14 @@
 /* Name: Seongkwan Son
  * Section: 01 DB
  * Date Created: Nov 2nd, 2020
- * Date Modifed: Nov 6th, 2020
+ * Date Modifed: Nov 13th, 2020
+ * Description: Contains characteristics of player and board.
+ * Significant Methods/Attributes: 
+ * dice(): roll dice from 1 to 6. 
+ * shortCut(): If the horse is at certain location, allow horse to use shorter route.
+ * Caught(): set horse to zero location in a certain condition
+ * Boost(): create boost tile and let horse make extra move based on the boost tile number
+ * obstacle(): find out horse is on obstacle or not.
  */
 package application;
 
@@ -10,10 +17,11 @@ public class Player {
 	int location;
 	private String name;
 	private  int id;
-	SpecialSkills specialSkills = new SpecialSkills();
 	Horse horse;
 	boolean isRunning = true;
 	boolean atObstacle = false;
+	int SkillNum;
+	private Player[] player = new Player[4];
 	
 	// shortcut variables
 	static int PATH_FULL = 0;
@@ -29,6 +37,7 @@ public class Player {
 		this.id = id;
 		System.out.println("player" +id+ "is created" );
 		horse = new Horse(id);
+		
 	}
 	
 	// dice ranging from 1 to 6
@@ -64,7 +73,6 @@ public class Player {
 				System.out.println("Path changed to Path2");
 			}
 		}
-		
 	}
 	// Horse caught and go to starting line
 	public void Caught() {
