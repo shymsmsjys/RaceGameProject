@@ -10,18 +10,23 @@
  * 
  */
 package application;
-import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class GameManager extends Thread {
-	private static int MAX_PLAYER =4;
 	private Player[] players;
+	private Main main;// = new Main();
 	int boostLocation0 = 0;
 	int boostLocation1 = 0;
 	int obstacleLocation0 = 0;
 	int obstacleLocation1 = 0;
+	int MAX_PLAYER = 0;
 	
-	public GameManager() {
+	public GameManager(int playerNum) {
+		MAX_PLAYER  = playerNum;
 		setup();
+		System.out.println("main2 =" + main);
 			boostLocation0 = randomFrom(1, 20);
 			System.out.println("Boost tile is at "+boostLocation0);
 			boostLocation1 = randomFrom(1, 20);
@@ -38,6 +43,7 @@ public class GameManager extends Thread {
 	// setup location to Starting Line, get name and number of players
 	public void setup() {
 		players = new Player[MAX_PLAYER];
+		
 		for (int i = 0; i < players.length; i++) {
 //			players[i] = new Player(i);
 			int SkillNum;
@@ -98,6 +104,7 @@ public class GameManager extends Thread {
 				
 		}
 		System.out.println("game is over");
+		FileIO();
 	}
 		
 	public boolean gameOver() {
@@ -119,9 +126,35 @@ public class GameManager extends Thread {
 		return randNum;
 	}
 	
+	public Player[] getPlayers() {
+		return players;
+	}
 	
-//	public Player[] getPlayer() {
-//		return player;
-//	}
-
+	public void FileIO() {
+		File file = new File("Ranking Table.txt");
+		
+		try {
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter bf = new BufferedWriter(fw);
+			Horse horse = null;
+			
+			bf.write("This is the ranking table of the Race");
+			bf.newLine();
+			if(gameOver()) {
+				for (int i = 0; i < players.length; i++) {
+					if(players[0].getHorse().getLocation() > players[i].getHorse().getLocation()) {
+						bf.write("Winner is " + players[0]);
+					}
+						
+					}
+				}
+				
+					
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 }

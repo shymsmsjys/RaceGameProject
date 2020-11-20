@@ -12,6 +12,10 @@
  */
 package application;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 public class Player {
 	
 	int location;
@@ -22,7 +26,7 @@ public class Player {
 	boolean atObstacle = false;
 	int SkillNum;
 	private Player[] player = new Player[4];
-	
+	private Main main = new Main();
 	// shortcut variables
 	static int PATH_FULL = 0;
 	static int PATH_1 = 1;
@@ -35,9 +39,8 @@ public class Player {
 		
 		//set name to inputed name
 		this.id = id;
-		System.out.println("player" +id+ "is created" );
+		System.out.println("player" +id+ " is created" );
 		horse = new Horse(id);
-		
 	}
 	
 	// dice ranging from 1 to 6
@@ -97,7 +100,7 @@ public class Player {
 		
 	}
 	// Check the state of horse finish or not
-	private void check() {
+	public void check() {
 		if (horse.getLocation() > goal[path]) {
 			setFinish();
 			System.out.println("Player" + id + " is finished");
@@ -127,5 +130,6 @@ public class Player {
 	public boolean getatObstacle() {
 		return atObstacle;
 	}
+	
 	
 }
