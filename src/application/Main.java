@@ -59,9 +59,9 @@ public class Main extends Application{
 		bt2.setStyle("-fx-font-size: 30");
 		bt2.setOnAction(e-> {
 			playerNum = 3;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
-			changeToBoard();
+			//GameManager gm = new GameManager(playerNum);
+			//gm.start();
+			changeToBoard(3);
 		});
 		firstPane.getChildren().add(bt2);
 		Button bt3 = new Button("Four");
@@ -83,8 +83,11 @@ public class Main extends Application{
 		
 	}
 	
-	private void changeToBoard() {
-		Scene scene = new Scene(new Barod(new GameManager(3)), 1000, 1000);
+	private void changeToBoard(int playerNum) {
+		GameManager gm = new GameManager(3);
+		gm.start();
+		Barod board = new Barod(gm);
+		Scene scene = new Scene(board, 1000, 1000);
 		mStage.setScene(scene);
 		mStage.show();
 	}
