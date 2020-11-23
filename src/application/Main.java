@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+	Stage mStage;
 	
 	Pane firstPane = new Pane();
 	Pane secondPane = new Pane();
@@ -32,6 +33,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		mStage = primaryStage;
 		Scene scene = new Scene(firstPane,1000,1000);
 		
 		Text text = new Text("How many players play the game?");
@@ -59,7 +61,7 @@ public class Main extends Application{
 			playerNum = 3;
 			GameManager gm = new GameManager(playerNum);
 			gm.start();
-			typeName();
+			changeToBoard();
 		});
 		firstPane.getChildren().add(bt2);
 		Button bt3 = new Button("Four");
@@ -79,6 +81,12 @@ public class Main extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+	}
+	
+	private void changeToBoard() {
+		Scene scene = new Scene(new Barod(new GameManager(3)), 1000, 1000);
+		mStage.setScene(scene);
+		mStage.show();
 	}
 	
 	public void typeName() {
