@@ -24,7 +24,7 @@ public class RocketMan extends Player{
 		int num;
 		int extraNum;
 		num = randomFrom(2, 5);
-		extraNum = roundUp (num * 1.5);
+		extraNum = (int) (num * 1.5);
 		System.out.println(extraNum-num + " is moved extra with Rocektman Skill (boost tile number: "+num+")");
 		horse.updateLocation(num);
 		return location;

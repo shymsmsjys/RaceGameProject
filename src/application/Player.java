@@ -25,8 +25,6 @@ public class Player {
 	boolean isRunning = true;
 	boolean atObstacle = false;
 	int SkillNum;
-	private Player[] player = new Player[4];
-	private Main main = new Main();
 	// shortcut variables
 	static int PATH_FULL = 0;
 	static int PATH_1 = 1;

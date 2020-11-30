@@ -13,6 +13,7 @@ package application;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class GameManager extends Thread {
 	private Player[] players;
@@ -26,7 +27,6 @@ public class GameManager extends Thread {
 	public GameManager(int playerNum) {
 		MAX_PLAYER  = playerNum;
 		setup();
-		System.out.println("main2 =" + main);
 			boostLocation0 = randomFrom(1, 20);
 			System.out.println("Boost tile is at "+boostLocation0);
 			boostLocation1 = randomFrom(1, 20);
@@ -65,8 +65,22 @@ public class GameManager extends Thread {
 
 		
 	}
+	
+	int[] ranking = new int[5] ;
+	int index =1;
 	// one turn, one throw dice and move the horses
 	public void run() {
+		File file = new File("Ranking Table.txt");
+		FileWriter fw;
+		BufferedWriter bf = null;;
+		try {
+			fw = new FileWriter(file);
+			bf = new BufferedWriter(fw);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		while(!gameOver()) {
 			
 				for (int i = 0; i < players.length; i++) {
@@ -79,6 +93,21 @@ public class GameManager extends Thread {
 						}
 						
 						players[i].dice();
+						if (!players[i].isRunning()) {
+							String str = "Ranking" +index+":player"+i;
+							System.out.println("Ranking" +index+":player"+i);
+							index++;
+//							FileIO();
+							try {
+								bf.write(str);
+								bf.newLine();
+//								bf.write("Ranking" +index+":player"+i);
+//								bf.newLine();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							}
 						
 						if (players[i].getHorse().getLocation() == boostLocation1 || players[i].getHorse().getLocation() == boostLocation0) {
 							players[i].Boost();
@@ -96,15 +125,22 @@ public class GameManager extends Thread {
 								players[j].Caught();
 							}	
 						}
+					
 						
 					}
-				
+					
 				}
 						
 				
 		}
+		
 		System.out.println("game is over");
-		FileIO();
+		try {
+			bf.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		
 	public boolean gameOver() {
@@ -136,22 +172,11 @@ public class GameManager extends Thread {
 		try {
 			FileWriter fw = new FileWriter(file);
 			BufferedWriter bf = new BufferedWriter(fw);
-			Horse horse = null;
 			
 			bf.write("This is the ranking table of the Race");
 			bf.newLine();
-			if(gameOver()) {
-				for (int i = 0; i < players.length; i++) {
-					if(players[0].getHorse().getLocation() > players[i].getHorse().getLocation()) {
-						bf.write("Winner is " + players[0]);
-					}
-						
-					}
-				}
-				
-					
-			
-			
+			bf.newLine();
+			bf.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
