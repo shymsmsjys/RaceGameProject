@@ -66,7 +66,7 @@ public class Main extends Application{
 			playerNum = 3;
 			//GameManager gm = new GameManager(playerNum);
 			//gm.start();
-			changeToBoard(3);
+			typeName();
 		});
 		firstPane.getChildren().add(bt2);
 		Button bt3 = new Button("Four");
@@ -86,15 +86,6 @@ public class Main extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-	}
-	
-	private void changeToBoard(int playerNum) {
-		GameManager gm = new GameManager(3);
-		gm.start();
-		Barod board = new Barod(gm);
-		Scene scene = new Scene(board, 1000, 1000);
-		mStage.setScene(scene);
-		mStage.show();
 	}
 	
 	public void typeName() {
@@ -168,6 +159,11 @@ public class Main extends Application{
 			
 			GameManager gm = new GameManager(playerNum, playerName);
 			gm.start();
+			
+			Barod board = new Barod(gm);
+			Scene scene = new Scene(board, 1000, 1000);
+			mStage.setScene(scene);
+			mStage.show();
 			
 		});
 
