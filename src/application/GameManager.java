@@ -95,8 +95,8 @@ public class GameManager extends Thread {
 						
 						players[i].dice();
 						if (!players[i].isRunning()) {
-							String str = "Ranking" +index+":player"+i;
-							System.out.println("Ranking" +index+":player"+i);
+							String str = "Ranking" +index+" :Player"+ i + ", " + players[i].getName();
+							System.out.println(str);
 							index++;
 //							FileIO();
 							try {
