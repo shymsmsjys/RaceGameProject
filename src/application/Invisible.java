@@ -11,9 +11,9 @@ package application;
 public class Invisible extends Player {
 	
 	
-	public Invisible(int id) {
-		super(id);
-		System.out.println("player"+id+ " is assigned with Invisible skill");
+	public Invisible(int id, String name) {
+		super(id, name);
+		System.out.println("Player" + id + " : " + name + " is assigned with Invisible skill");
 		
 	}
 

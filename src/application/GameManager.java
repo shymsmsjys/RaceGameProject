@@ -24,9 +24,10 @@ public class GameManager extends Thread {
 	int obstacleLocation1 = 0;
 	int MAX_PLAYER = 0;
 	
-	public GameManager(int playerNum) {
+	public GameManager(int playerNum, String[] playersName) {
 		MAX_PLAYER  = playerNum;
-		setup();
+		
+		setup(playersName);
 			boostLocation0 = randomFrom(1, 20);
 			System.out.println("Boost tile is at "+boostLocation0);
 			boostLocation1 = randomFrom(1, 20);
@@ -41,7 +42,7 @@ public class GameManager extends Thread {
 	}
 		
 	// setup location to Starting Line, get name and number of players
-	public void setup() {
+	public void setup(String[] name) {
 		players = new Player[MAX_PLAYER];
 		
 		for (int i = 0; i < players.length; i++) {
@@ -49,16 +50,16 @@ public class GameManager extends Thread {
 			int SkillNum;
 			SkillNum = randomFrom(1,4);
 			if (SkillNum == 1) {
-				players[i] = new RocketMan(i);
-				
+				players[i] = new RocketMan(i, name[i]);
 			}
 			else if (SkillNum == 2) {
-				players[i] = new Invisible(i);
+				players[i] = new Invisible(i, name[i]);
 			}
 			
 			else if (SkillNum == 3) {
-				players[i] = new Unstoppable(i);
+				players[i] = new Unstoppable(i, name[i]);
 			}
+			players[i].setName(name[i]);
 		}
 		
 

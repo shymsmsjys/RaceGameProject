@@ -11,9 +11,9 @@ package application;
 public class RocketMan extends Player{
 
 	
-	public RocketMan(int id) {
-		super(id);
-		System.out.println("player"+id+ " is assigned with Rocketman skill");
+	public RocketMan(int id, String name) {
+		super(id, name);
+		System.out.println("Player" + id + " : " + name + " is assigned with Rocketman skill");
 		// TODO Auto-generated constructor stub
 	}
 

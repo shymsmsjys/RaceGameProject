@@ -10,10 +10,10 @@ package application;
 
 public class Unstoppable extends Player{
 	boolean off = false;
-	public Unstoppable(int id) {
-		super(id);
+	public Unstoppable(int id, String name) {
+		super(id, name);
 		// TODO Auto-generated constructor stub
-		System.out.println("player"+id+ " is assigned with Unstoppable skill");
+		System.out.println("Player" + id + " : " + name + " is assigned with Unstoppable skill");
 	}
 	
 	@Override

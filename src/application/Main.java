@@ -19,6 +19,12 @@ public class Main extends Application{
 	Pane firstPane = new Pane();
 	Pane secondPane = new Pane();
 	private int playerNum;
+	
+	TextField Player1;
+	TextField Player2;
+	TextField Player3;
+	TextField Player4;
+	String[] playerName;
 
 	
 	public static void main(String[] args) {
@@ -47,8 +53,8 @@ public class Main extends Application{
 		bt1.setStyle("-fx-font-size: 30");
 		bt1.setOnAction(e-> {
 			playerNum = 2;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
+//			GameManager gm = new GameManager(playerNum);
+//			gm.start();
 			typeName();
 		});
 		firstPane.getChildren().add(bt1);
@@ -70,8 +76,8 @@ public class Main extends Application{
 		bt3.setStyle("-fx-font-size: 30");
 		bt3.setOnAction(e-> {
 			playerNum = 4;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
+//			GameManager gm = new GameManager(playerNum);
+//			gm.start();
 			typeName();
 		});
 		
@@ -99,9 +105,15 @@ public class Main extends Application{
 		textName.setLayoutY(100);
 		firstPane.getChildren().add(textName);
 		
+		Player1 = new TextField("Player1");
+		Player2 = new TextField("Player2");
+		Player3 = new TextField("Player3");
+		Player4 = new TextField("Player4");
+		playerName = new String[4];
+		
 		if(playerNum == 2) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
+//			TextField Player1 = new TextField("Player1");
+//			TextField Player2 = new TextField("Player2");
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			Player1.setLayoutX(250);
@@ -111,9 +123,9 @@ public class Main extends Application{
 			
 		}
 		else if (playerNum == 3) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
-			TextField Player3 = new TextField("Player3");
+//			TextField Player1 = new TextField("Player1");
+//			TextField Player2 = new TextField("Player2");
+//			TextField Player3 = new TextField("Player3");
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
@@ -125,10 +137,10 @@ public class Main extends Application{
 			Player3.setLayoutY(200);
 		}
 		else if (playerNum == 4) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
-			TextField Player3 = new TextField("Player3");
-			TextField Player4 = new TextField("Player4");
+//			TextField Player1 = new TextField("Player1");
+//			TextField Player2 = new TextField("Player2");
+//			TextField Player3 = new TextField("Player3");
+//			TextField Player4 = new TextField("Player4");
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
@@ -149,8 +161,16 @@ public class Main extends Application{
 		btnStart.setLayoutY(450);
 		btnStart.setStyle("-fx-font-size: 30");
 		btnStart.setOnAction(e-> {
+			playerName[0] = Player1.getText();
+			playerName[1] = Player2.getText();
+			playerName[2] = Player3.getText();
+			playerName[3] = Player4.getText();
+			
+			GameManager gm = new GameManager(playerNum, playerName);
+			gm.start();
+			
 		});
-		
+
 	}
 	public int getPlayerNum() {
 		System.out.println("getPlayerNum() = " + playerNum);

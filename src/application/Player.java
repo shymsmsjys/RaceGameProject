@@ -19,7 +19,8 @@ import java.io.FileWriter;
 public class Player {
 	
 	int location;
-	private String name;
+	protected String name;
+
 	private  int id;
 	Horse horse;
 	boolean isRunning = true;
@@ -33,11 +34,12 @@ public class Player {
 	private int path = PATH_FULL;
 	private int goal[] = {20, 16, 11, 16};
 	
-	public Player(int id) {
+	public Player(int id, String name) {
 		
 		//set name to inputed name
 		this.id = id;
-		System.out.println("player" +id+ " is created" );
+		this.name = name;
+		System.out.println("Player" + id + " : " + name + " is created" );
 		horse = new Horse(id);
 	}
 	
@@ -48,7 +50,7 @@ public class Player {
 		int high = 6;
 		dice = (int) (Math.random()*(high-low) + low);
 		 
-		System.out.println("\nplyaer" +id + " rolled dice " + dice);
+		System.out.println("\n" + name + " rolled dice " + dice);
 		shortCut(dice);
 		check();
 	}
@@ -78,7 +80,7 @@ public class Player {
 	// Horse caught and go to starting line
 	public void Caught() {
 		horse.setLocation(0);
-		System.out.println("Player" + id + " is caught. Go to starting line");
+		System.out.println("Player" + id + " : " + name + " is caught. Go to starting line");
 	}
 	// Boost tile number give extra move to Horse
 	public int Boost() {;
@@ -101,7 +103,7 @@ public class Player {
 	public void check() {
 		if (horse.getLocation() > goal[path]) {
 			setFinish();
-			System.out.println("Player" + id + " is finished");
+			System.out.println("Player" + id + " : " + name + " is finished");
 		}
 	}
 	//  still running?
@@ -129,5 +131,12 @@ public class Player {
 		return atObstacle;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 }
