@@ -143,6 +143,14 @@ public class Main extends Application{
 			Player4.setLayoutY(200);
 		}
 		
+		Button btnStart = new Button("Start");
+		firstPane.getChildren().add(btnStart);
+		btnStart.setLayoutX(450);
+		btnStart.setLayoutY(450);
+		btnStart.setStyle("-fx-font-size: 30");
+		btnStart.setOnAction(e-> {
+		});
+		
 	}
 	public int getPlayerNum() {
 		System.out.println("getPlayerNum() = " + playerNum);
