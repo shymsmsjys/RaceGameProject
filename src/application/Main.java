@@ -14,11 +14,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+	Stage mStage;
 	
 	Pane firstPane = new Pane();
 	Pane secondPane = new Pane();
 	private int playerNum;
 
+	TextField Player1;
+	TextField Player2;
+	TextField Player3;
+	TextField Player4;
+	String[] playerName;
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -31,6 +37,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		mStage = primaryStage;
 		Scene scene = new Scene(firstPane,1000,1000);
 		
 		Text text = new Text("How many players play the game?");
@@ -45,8 +52,6 @@ public class Main extends Application{
 		bt1.setStyle("-fx-font-size: 30");
 		bt1.setOnAction(e-> {
 			playerNum = 2;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
 			typeName();
 		});
 		firstPane.getChildren().add(bt1);
@@ -56,8 +61,6 @@ public class Main extends Application{
 		bt2.setStyle("-fx-font-size: 30");
 		bt2.setOnAction(e-> {
 			playerNum = 3;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
 			typeName();
 		});
 		firstPane.getChildren().add(bt2);
@@ -68,8 +71,6 @@ public class Main extends Application{
 		bt3.setStyle("-fx-font-size: 30");
 		bt3.setOnAction(e-> {
 			playerNum = 4;
-			GameManager gm = new GameManager(playerNum);
-			gm.start();
 			typeName();
 		});
 		
@@ -82,15 +83,20 @@ public class Main extends Application{
 	
 	public void typeName() {
 		firstPane.getChildren().clear();
-		Text textName = new Text("Type the name in English only");
+		Text textName = new Text("Type names in English only");
 		textName.setStyle("-fx-font-size: 30;");
 		textName.setLayoutX(280);
 		textName.setLayoutY(100);
 		firstPane.getChildren().add(textName);
 		
+		Player1 = new TextField("Player1");
+		Player2 = new TextField("Player2");
+		Player3 = new TextField("Player3");
+		Player4 = new TextField("Player4");
+		playerName = new String[4];
+		
 		if(playerNum == 2) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
+
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			Player1.setLayoutX(250);
@@ -100,9 +106,7 @@ public class Main extends Application{
 			
 		}
 		else if (playerNum == 3) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
-			TextField Player3 = new TextField("Player3");
+			
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
@@ -114,10 +118,7 @@ public class Main extends Application{
 			Player3.setLayoutY(200);
 		}
 		else if (playerNum == 4) {
-			TextField Player1 = new TextField("Player1");
-			TextField Player2 = new TextField("Player2");
-			TextField Player3 = new TextField("Player3");
-			TextField Player4 = new TextField("Player4");
+	
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
@@ -131,6 +132,27 @@ public class Main extends Application{
 			Player4.setLayoutX(750);
 			Player4.setLayoutY(200);
 		}
+		
+		Button btStart = new Button("Start");
+		firstPane.getChildren().add(btStart);
+		btStart.setLayoutX(450);
+		btStart.setLayoutY(450);
+		btStart.setStyle("-fx-font-size: 30");
+		btStart.setOnAction(e-> {
+			playerName[0] = Player1.getText();
+			playerName[1] = Player2.getText();
+			playerName[2] = Player3.getText();
+			playerName[3] = Player4.getText();
+			
+			GameManager gm = new GameManager (playerNum, playerName);
+			gm.start();
+			
+			Board board = new Board(gm);
+			Scene scene = new Scene(board, 1000, 1000);
+			mStage.setScene(scene);
+			mStage.show();
+			
+		});
 		
 	}
 	public int getPlayerNum() {

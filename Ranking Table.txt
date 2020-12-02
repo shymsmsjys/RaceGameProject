@@ -1,3 +1,2 @@
-Ranking1:player0
-Ranking2:player2
-Ranking3:player1
+Ranking1:player0, 1
+Ranking2:player1, 2
