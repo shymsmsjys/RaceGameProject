@@ -60,17 +60,17 @@ public class Player {
 		horse.updateLocation(num);
 		
 		if (path == PATH_FULL ) {
-			if (horse.getLocation() == 5) {
+			if (horse.getLocation() == 15) {
 				path = PATH_1;
 				System.out.println("Path changed to Path1");
 			}
-			else if (horse.getLocation() == 10) {
+			else if (horse.getLocation() == 30) {
 				path = PATH_3;
 				System.out.println("Path changed to Path3");
 			}
 		}
 		else if (path == PATH_1) {
-			if (horse.getLocation() == 8) {
+			if (horse.getLocation() == 23) {
 				path = PATH_2;
 				System.out.println("Path changed to Path2");
 			}
@@ -78,7 +78,7 @@ public class Player {
 	}
 	// Horse caught and go to starting line
 	public void Caught() {
-		horse.setLocation(0);
+		shortCut(0);
 		System.out.println("Player" + id +": "+ name + " is caught. Go to starting line");
 	}
 	// Boost tile number give extra move to Horse
@@ -86,7 +86,7 @@ public class Player {
 		int num;
 		num = randomFrom(2, 5);
 		System.out.println(num + " boost tile increased the speed!!");
-		horse.updateLocation(num);
+		shortCut(num);
 		return location;
 	}
 	// Make player one turn skip
@@ -138,5 +138,8 @@ public class Player {
 		this.name = name;
 	}
 	
+	public int getPath() {
+		return path;
+	}
 	
 }

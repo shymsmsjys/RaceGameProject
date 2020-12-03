@@ -13,7 +13,7 @@ public class Invisible extends Player {
 	
 	public Invisible(int id, String name) {
 		super(id, name);
-		System.out.println("player"+ id+ ":" + name + " is assigned with Invisible skill");
+		System.out.println( name + " is assigned with Invisible skill");
 		
 	}
 

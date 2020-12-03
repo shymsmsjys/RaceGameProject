@@ -1,2 +1,0 @@
-Ranking1:player0, 1
-Ranking2:player1, 2

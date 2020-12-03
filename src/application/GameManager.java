@@ -22,10 +22,10 @@ public class GameManager extends Thread {
 	int boostLocation1 = 0;
 	int obstacleLocation0 = 0;
 	int obstacleLocation1 = 0;
-	int MAX_PLAYER = 0;
+	int playerNum = 0;
 	
 	public GameManager(int playerNum, String[] playersName) {
-		MAX_PLAYER  = playerNum;
+		this.playerNum  = playerNum;
 		setup(playersName);
 			boostLocation0 = randomFrom(1, 20);
 			System.out.println("Boost tile is at "+boostLocation0);
@@ -42,7 +42,7 @@ public class GameManager extends Thread {
 		
 	// setup location to Starting Line, get name and number of players
 	public void setup(String[] name) {
-		players = new Player[MAX_PLAYER];
+		players = new Player[playerNum];
 		
 		for (int i = 0; i < players.length; i++) {
 //			players[i] = new Player(i);
@@ -69,7 +69,7 @@ public class GameManager extends Thread {
 	int[] ranking = new int[5] ;
 	int index =1;
 	// one turn, one throw dice and move the horses
-	public void run() {
+/*	public void run() {
 		File file = new File("Ranking Table.txt");
 		FileWriter fw;
 		BufferedWriter bf = null;;
@@ -144,19 +144,84 @@ public class GameManager extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	private int currentPlayerId = 0;
+	*/
+	private int mNextPlayerId = 0;
+	private int mCurrentPlayerId = 0;
 	
 	public void nextDice() {
+	
+		File file = new File("Ranking Table.txt");
+		FileWriter fw;
+		BufferedWriter bf = null;;
+		try {
+			fw = new FileWriter(file);
+			bf = new BufferedWriter(fw);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		players[currentPlayerId].dice();
+		if (players[mNextPlayerId].isRunning()) {
+			if (players[mNextPlayerId].getatObstacle() == true) {
+				players[mNextPlayerId].Obstacle(false);
+				System.out.println( players[mNextPlayerId].getName() + " is out of obstacle now");
+				 return;
+			}
+			
+			players[mNextPlayerId].dice();
+			mCurrentPlayerId = mNextPlayerId;
+			if (!players[mNextPlayerId].isRunning()) {
+				String str = "Ranking" +index+":player"+ mNextPlayerId + ", " + players[mNextPlayerId].getName();
+				System.out.println(str);
+				index++;
+//				FileIO();
+				try {
+					bf.write(str);
+					bf.newLine();
+				bf.write("Ranking" +index+":player"+ mNextPlayerId);
+				bf.newLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			
+			if (players[mNextPlayerId].getHorse().getLocation() == boostLocation1 || players[mNextPlayerId].getHorse().getLocation() == boostLocation0) {
+				players[mNextPlayerId].Boost();
+			}
+			if (players[mNextPlayerId].getHorse().getLocation() == obstacleLocation1 || players[mNextPlayerId].getHorse().getLocation() == obstacleLocation0) {
+				players[mNextPlayerId].Obstacle(true);
+			
+			}
+			for (int j = 0; j < players.length; j++) {
+				//
+				if(j == mNextPlayerId) {
+					continue;
+				}
+				if (players[mNextPlayerId].getHorse().getLocation() == players[j].getHorse().getLocation()) {
+					players[j].Caught();
+				}	
+			}
+			
+			try {
+				bf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		
-		// logic
-
+		}
 		
+		//mCurrentPlayerId++;
+		setNextPlayerId();
 		
-		
-		currentPlayerId++;
+	}
+	
+	private void setNextPlayerId() {
+		if (++mNextPlayerId >= players.length) {
+			mNextPlayerId = 0;
+		}
 	}
 		
 	public boolean gameOver() {
@@ -182,6 +247,11 @@ public class GameManager extends Thread {
 		return players;
 	}
 	
+	
+	public Player getCurrentPlayer() {
+		return players[mCurrentPlayerId];
+	}
+	
 	public void FileIO() {
 		File file = new File("Ranking Table.txt");
 		
@@ -196,6 +266,10 @@ public class GameManager extends Thread {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	
+	public int getPlayerNumber() {
+		return playerNum;
 	}
 	
 }
