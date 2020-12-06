@@ -5,8 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.scene.shape.TriangleMesh;
 
 public class Board extends Pane {
 	
@@ -16,7 +18,8 @@ public class Board extends Pane {
 	Button rollbt = new Button("Roll");
 	int posX[][];
 	int posY[][];
-
+	
+	
 	public Board(GameManager mGm) {
 		super();
 		this.mGm = mGm;
@@ -69,6 +72,24 @@ public class Board extends Pane {
 		horse4.setLayoutX(750);
 		horse4.setLayoutY(730);
 		getChildren().add(horse4);
+		/*
+		Circle [] obstacle = new Circle [8];
+		for (int i = 0; i < obstacle.length; i++) {
+			obstacle[i].setFill(Color.GREEN);
+			obstacle[i].setStrokeWidth(10);
+			//obstacle[i].setLayoutX(posX[0][0]);
+			//obstacle[i].setLayoutY(posY[0][0]);
+		}
+		
+		Ellipse [] boostTile = new Ellipse [8];
+		for (int i = 0; i < boostTile.length; i++) {
+			boostTile[i].setFill(Color.YELLOW);
+			boostTile[i].setStroke(Color.RED);
+			boostTile[i].setStrokeWidth(10);
+		//	boostTile[i].setLayoutX(posX[0][0]);
+			//boostTile[i].setLayoutY(posY[0][0]);
+		}
+		
 		
 		/*
 		Text nameList = new Text(players[0].getName() + "'s horse is blue" + "\n"
@@ -84,6 +105,7 @@ public class Board extends Pane {
 		rollbt.setOnAction(e-> {
 			
 				mGm.nextDice();
+				
 			
 			
 			// update horse's graphical location 
@@ -233,7 +255,7 @@ public class Board extends Pane {
 		posX[0][60] = 740;
 		posY[0][60] = 735;
 		
-		//PATH 1 일때
+		//PATH 1
 		posX[1][0] = 730;
 		posY[1][0] = 730;
 		posX[1][1] = 730;
@@ -329,7 +351,7 @@ public class Board extends Pane {
 		posX[1][46] = 740;
 		posY[1][46] = 735;
 		
-		//PATH 2 일때
+		//PATH 2 
 		posX[2][0] = 730;
 		posY[2][0] = 730;
 		posX[2][1] = 730;
@@ -395,7 +417,7 @@ public class Board extends Pane {
 		posX[2][31] = 740;
 		posY[2][31] = 735;
 		
-		//PATH 3 일때
+		//PATH 3 
 		posX[3][0] = 730;
 		posY[3][0] = 730;
 		posX[3][1] = 730;
@@ -490,10 +512,6 @@ public class Board extends Pane {
 		posY[3][45] = 685;
 		posX[3][46] = 740;
 		posY[3][46] = 735;
-		
-		
-		
-		
 	}
 	
 	public void getHorseLocation(int id) {
@@ -501,22 +519,4 @@ public class Board extends Pane {
 	}
 	
 	
-	private void initPosition() {
-		/*posX[0][0] = 300;
-		posY[0][0] = 300;
-		posX[0][1] = 300;
-		posY[0][1] = 300 -20;
-		
-		// if path is 1
-		posX[1][0] = 300;
-		posY[1][0] = 300;
-		*/
-
-		
-
-		
-	}
-
-	// gamemanager 전달
-	// 
 }

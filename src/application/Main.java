@@ -7,8 +7,12 @@ package application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,7 +21,6 @@ public class Main extends Application{
 	Stage mStage;
 	
 	Pane firstPane = new Pane();
-	Pane secondPane = new Pane();
 	private int playerNum;
 
 	TextField Player1;
@@ -25,6 +28,7 @@ public class Main extends Application{
 	TextField Player3;
 	TextField Player4;
 	String[] playerName;
+	Image image = new Image("file:playing yut.jpg");
 	
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -40,10 +44,16 @@ public class Main extends Application{
 		mStage = primaryStage;
 		Scene scene = new Scene(firstPane,1000,1000);
 		
+		ImageView iv = new ImageView();
+		iv.setImage(image);
+		iv.setFitHeight(1000);
+		iv.setFitWidth(1000);
+		firstPane.getChildren().add(iv);
+		
 		Text text = new Text("How many players play the game?");
-		text.setLayoutX(280);
-		text.setLayoutY(100);
-		text.setStyle("-fx-font-size: 30;");
+		text.setLayoutX(250);
+		text.setLayoutY(150);
+		text.setStyle("-fx-font-size: 35;");
 		firstPane.getChildren().add(text);
 		
 		Button bt1 = new Button("Two");
@@ -99,6 +109,7 @@ public class Main extends Application{
 
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
+			
 			Player1.setLayoutX(250);
 			Player1.setLayoutY(200);
 			Player2.setLayoutX(450);
@@ -110,6 +121,7 @@ public class Main extends Application{
 			firstPane.getChildren().add(Player1);
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
+			
 			Player1.setLayoutX(250);
 			Player1.setLayoutY(200);
 			Player2.setLayoutX(450);
@@ -123,6 +135,7 @@ public class Main extends Application{
 			firstPane.getChildren().add(Player2);
 			firstPane.getChildren().add(Player3);
 			firstPane.getChildren().add(Player4);
+			
 			Player1.setLayoutX(150);
 			Player1.setLayoutY(200);
 			Player2.setLayoutX(350);
@@ -139,12 +152,28 @@ public class Main extends Application{
 		btStart.setLayoutY(450);
 		btStart.setStyle("-fx-font-size: 30");
 		btStart.setOnAction(e-> {
+			
 			playerName[0] = Player1.getText();
 			playerName[1] = Player2.getText();
 			playerName[2] = Player3.getText();
 			playerName[3] = Player4.getText();
 			
+			try {
+				checkSpell(playerName[0]);
+				checkSpell(playerName[1]);
+				checkSpell(playerName[2]);
+				checkSpell(playerName[3]);
+			} catch (Exception e1) {
+				String Text = " Type Player's names only in English and numerical value.(Don't use #,!,~,*)";
+				
+				Alert Direction = new Alert(Alert.AlertType.INFORMATION, Text, ButtonType.OK);
+				Direction.setTitle("Direction");
+				Direction.showAndWait();
+				return;
+			}
+			
 			GameManager gm = new GameManager (playerNum, playerName);
+			
 			gm.start();
 			
 			Board board = new Board(gm);
@@ -158,5 +187,15 @@ public class Main extends Application{
 	public int getPlayerNum() {
 		System.out.println("getPlayerNum() = " + playerNum);
 		return playerNum;
+	}
+	
+	private void checkSpell(String str) throws Exception {
+		if (str.contains("#")
+				|| str.contains("!")
+				|| str.contains("~")
+				|| str.contains("*")
+				) {
+			throw new Exception();
+		}
 	}
 }

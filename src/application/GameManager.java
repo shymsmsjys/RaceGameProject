@@ -18,26 +18,15 @@ import java.io.IOException;
 public class GameManager extends Thread {
 	private Player[] players;
 	private Main main;// = new Main();
-	int boostLocation0 = 0;
-	int boostLocation1 = 0;
-	int obstacleLocation0 = 0;
-	int obstacleLocation1 = 0;
 	int playerNum = 0;
+	int[] obstacleLocation = new int [8]; 
+	int[] boostLocation = new int [8];
 	
 	public GameManager(int playerNum, String[] playersName) {
 		this.playerNum  = playerNum;
 		setup(playersName);
-			boostLocation0 = randomFrom(1, 20);
-			System.out.println("Boost tile is at "+boostLocation0);
-			boostLocation1 = randomFrom(1, 20);
-			System.out.println("Boost tile is at "+boostLocation1);
-			obstacleLocation0 = randomFrom(1, 20);
-			System.out.println("Obstacle tile is at " + obstacleLocation0);
-			obstacleLocation1 = randomFrom(1, 20);
-			System.out.println("Obstacle tile is at " + obstacleLocation1);
-			
-			
-			
+		Obstacles();
+		boostTiles();
 	}
 		
 	// setup location to Starting Line, get name and number of players
@@ -186,11 +175,18 @@ public class GameManager extends Thread {
 				}
 				}
 			
-			if (players[mNextPlayerId].getHorse().getLocation() == boostLocation1 || players[mNextPlayerId].getHorse().getLocation() == boostLocation0) {
-				players[mNextPlayerId].Boost();
+			for (int i = 0; i < boostLocation.length; i++) {
+			
+				if (players[mNextPlayerId].getHorse().getLocation() == boostLocation[i]) {
+					players[mNextPlayerId].Boost();
 			}
-			if (players[mNextPlayerId].getHorse().getLocation() == obstacleLocation1 || players[mNextPlayerId].getHorse().getLocation() == obstacleLocation0) {
-				players[mNextPlayerId].Obstacle(true);
+			}
+			
+			for (int i = 0; i < obstacleLocation.length; i++) {
+				if (players[mNextPlayerId].getHorse().getLocation() == obstacleLocation[i]) {
+					players[mNextPlayerId].Obstacle(true);
+			}
+			
 			
 			}
 			for (int j = 0; j < players.length; j++) {
@@ -252,24 +248,34 @@ public class GameManager extends Thread {
 		return players[mCurrentPlayerId];
 	}
 	
-	public void FileIO() {
-		File file = new File("Ranking Table.txt");
-		
-		try {
-			FileWriter fw = new FileWriter(file);
-			BufferedWriter bf = new BufferedWriter(fw);
-			
-			bf.write("This is the ranking table of the Race");
-			bf.newLine();
-			bf.newLine();
-			bf.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-	
 	public int getPlayerNumber() {
 		return playerNum;
 	}
+	
+	public void Obstacles() {
+		
+		for (int i = 0; i < obstacleLocation.length; i++) {
+		
+			obstacleLocation[i] = randomFrom(1, 60);
+			System.out.println("Obstacle tile is at " + obstacleLocation[i]);
+		}
+		
+	}
+	
+	public void boostTiles() {
+		for (int i = 0; i < boostLocation.length; i++) {
+			boostLocation[i] = randomFrom(1, 60);
+			System.out.println("Boost tile is at "+ boostLocation[i]);
+		}
+	}
+	
+	public int[] getObstacles() {
+		return obstacleLocation;
+	}
+	
+	public int[] getBoostTiles() {
+		return boostLocation;
+	}
+	
 	
 }
