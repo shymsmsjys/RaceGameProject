@@ -1,5 +1,12 @@
 package application;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,38 +16,62 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.TriangleMesh;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class Board extends Pane {
-	
+
 	int[] horsePosition;
-	Player [] players;
+	Player[] players;
 	GameManager mGm;
 	Button rollbt = new Button("Roll");
-	int posX[][];
-	int posY[][];
-	
-	
+	double posX[][];
+	double posY[][];
+
 	public Board(GameManager mGm) {
 		super();
 		this.mGm = mGm;
 		init();
 	}
-	
+
 	private void init() {
-		posX = new int [4][61];
-		posY = new int [4][61];
-		
+		posX = new double[4][62];
+		posY = new double[4][62];
+		initPositionXy();
+
 		players = mGm.getPlayers();
 		Image imgBg = new Image("file:Board.png");
 		ImageView ivBg = new ImageView();
 		ivBg.setImage(imgBg);
 		getChildren().add(ivBg);
-		
+
 		rollbt.setStyle("-fx-font-size: 30");
 		rollbt.setLayoutX(350);
 		rollbt.setLayoutY(900);
 		getChildren().add(rollbt);
-		
+
+		Circle[] obstacle = new Circle[3];
+		for (int i = 0; i < obstacle.length; i++) {
+			obstacle[i] = new Circle();
+			obstacle[i].setFill(Color.GREEN);
+			obstacle[i].setCenterX(posX[2][mGm.getObstacles()[i]]);
+			obstacle[i].setCenterY(posY[2][mGm.getObstacles()[i]]);
+			obstacle[i].setRadius(10);
+			;
+			getChildren().add(obstacle[i]);
+		}
+
+		Ellipse[] boostTile = new Ellipse[3];
+		for (int i = 0; i < boostTile.length; i++) {
+			boostTile[i] = new Ellipse();
+			boostTile[i].setFill(Color.YELLOW);
+			boostTile[i].setStroke(Color.RED);
+			boostTile[i].setStrokeWidth(20);
+			boostTile[i].setLayoutX(posX[0][mGm.getBoostTiles()[i]]);
+			boostTile[i].setLayoutY(posY[0][mGm.getBoostTiles()[i]]);
+			getChildren().add(boostTile[i]);
+		}
+
 		Rectangle horse1 = new Rectangle();
 		horse1.setFill(Color.BLUE);
 		horse1.setWidth(15);
@@ -48,7 +79,7 @@ public class Board extends Pane {
 		horse1.setLayoutX(720);
 		horse1.setLayoutY(730);
 		getChildren().add(horse1);
-		
+
 		Rectangle horse2 = new Rectangle();
 		horse2.setFill(Color.WHITE);
 		horse2.setWidth(15);
@@ -56,7 +87,7 @@ public class Board extends Pane {
 		horse2.setLayoutX(730);
 		horse2.setLayoutY(730);
 		getChildren().add(horse2);
-		
+
 		Rectangle horse3 = new Rectangle();
 		horse3.setFill(Color.SILVER);
 		horse3.setWidth(15);
@@ -64,7 +95,7 @@ public class Board extends Pane {
 		horse3.setLayoutX(740);
 		horse3.setLayoutY(730);
 		getChildren().add(horse3);
-		
+
 		Rectangle horse4 = new Rectangle();
 		horse4.setFill(Color.GOLD);
 		horse4.setWidth(15);
@@ -72,66 +103,71 @@ public class Board extends Pane {
 		horse4.setLayoutX(750);
 		horse4.setLayoutY(730);
 		getChildren().add(horse4);
-		/*
-		Circle [] obstacle = new Circle [8];
-		for (int i = 0; i < obstacle.length; i++) {
-			obstacle[i].setFill(Color.GREEN);
-			obstacle[i].setStrokeWidth(10);
-			//obstacle[i].setLayoutX(posX[0][0]);
-			//obstacle[i].setLayoutY(posY[0][0]);
+
+		for (int i = 0; i < mGm.playerNum; i++) {
+
+			if (players[i] == players[0]) {
+				Text nameList = new Text(players[0].getName() + "'s horse is blue");
+				nameList.setStyle("-fx-font-size: 15");
+				nameList.setLayoutX(800);
+				nameList.setLayoutY(30);
+				getChildren().add(nameList);
+			} else if (players[i] == players[1]) {
+				Text nameList1 = new Text(players[1].getName() + "'s horse is white");
+				nameList1.setStyle("-fx-font-size: 15");
+				nameList1.setLayoutX(800);
+				nameList1.setLayoutY(45);
+				getChildren().add(nameList1);
+			}
+
+			else if (players[i] == players[2]) {
+				Text nameList2 = new Text(players[2].getName() + "'s horse is silver");
+				nameList2.setStyle("-fx-font-size: 15");
+				nameList2.setLayoutX(800);
+				nameList2.setLayoutY(60);
+				getChildren().add(nameList2);
+			}
+
+			else if (players[i] == players[3]) {
+				Text nameList3 = new Text(players[3].getName() + "'s horse is gold");
+				nameList3.setStyle("-fx-font-size: 15");
+				nameList3.setLayoutX(800);
+				nameList3.setLayoutY(75);
+				getChildren().add(nameList3);
+			}
 		}
-		
-		Ellipse [] boostTile = new Ellipse [8];
-		for (int i = 0; i < boostTile.length; i++) {
-			boostTile[i].setFill(Color.YELLOW);
-			boostTile[i].setStroke(Color.RED);
-			boostTile[i].setStrokeWidth(10);
-		//	boostTile[i].setLayoutX(posX[0][0]);
-			//boostTile[i].setLayoutY(posY[0][0]);
-		}
-		
-		
-		/*
-		Text nameList = new Text(players[0].getName() + "'s horse is blue" + "\n"
-								+players[1].getName() + "'s horse is white" + "\n" +
-								 players[2].getName() + "'s horse is silver" + "\n" +
-								 players[3].getName() + "'s horse is gold");
-		nameList.setStyle("-fx-font-size: 15");
-		nameList.setLayoutX(800);
-		nameList.setLayoutY(30);
-		getChildren().add(nameList);
-		*/
-		
-		rollbt.setOnAction(e-> {
-			
-				mGm.nextDice();
-				
-			
-			
-			// update horse's graphical location 
-			Player player = mGm.getCurrentPlayer();
-			int horseLocation = player.getHorse().getLocation();
-			horse1.setLayoutX(posX[player.getPath()][players[0].getHorse().getLocation()]);
-			horse1.setLayoutY(posY[player.getPath()][players[0].getHorse().getLocation()]);
-			horse2.setLayoutX(posX[player.getPath()][players[1].getHorse().getLocation()]);
-			horse2.setLayoutY(posY[player.getPath()][players[1].getHorse().getLocation()]);
-			
+
+		rollbt.setOnAction(e -> {
+
+			mGm.nextDice();
+
+			// update horse's graphical location
+//			Player player = mGm.getCurrentPlayer();
+//			int horseLocation = player.getHorse().getLocation();
+			horse1.setLayoutX(posX[players[0].getPath()][players[0].getHorse().getLocation()]);
+			horse1.setLayoutY(posY[players[0].getPath()][players[0].getHorse().getLocation()]);
+			horse2.setLayoutX(posX[players[1].getPath()][players[1].getHorse().getLocation()]);
+			horse2.setLayoutY(posY[players[1].getPath()][players[1].getHorse().getLocation()]);
+
 			if (players.length >= 3) {
-				horse3.setLayoutX(posX[player.getPath()][players[2].getHorse().getLocation()]);
-				horse3.setLayoutY(posY[player.getPath()][players[2].getHorse().getLocation()]);
+				horse3.setLayoutX(posX[players[2].getPath()][players[2].getHorse().getLocation()]);
+				horse3.setLayoutY(posY[players[2].getPath()][players[2].getHorse().getLocation()]);
 			}
-			
+
 			if (players.length >= 4) {
-				horse4.setLayoutX(posX[player.getPath()][players[3].getHorse().getLocation()]);
-				horse4.setLayoutY(posY[player.getPath()][players[3].getHorse().getLocation()]);
+				horse4.setLayoutX(posX[players[3].getPath()][players[3].getHorse().getLocation()]);
+				horse4.setLayoutY(posY[players[3].getPath()][players[3].getHorse().getLocation()]);
 			}
-			
-			
+
 		});
-		
+
 		// start 730, 730
-		//initPosition();
+		// initPosition();
 		// PATH 0 ¿œ∂ß
+
+	}
+
+	private void initPositionXy() {
 		posX[0][0] = 730;
 		posY[0][0] = 730;
 		posX[0][1] = 730;
@@ -254,8 +290,10 @@ public class Board extends Pane {
 		posY[0][59] = 735;
 		posX[0][60] = 740;
 		posY[0][60] = 735;
-		
-		//PATH 1
+		posX[0][61] = 0;
+		posY[0][61] = 0;
+
+		// PATH 1
 		posX[1][0] = 730;
 		posY[1][0] = 730;
 		posX[1][1] = 730;
@@ -350,8 +388,8 @@ public class Board extends Pane {
 		posY[1][45] = 735;
 		posX[1][46] = 740;
 		posY[1][46] = 735;
-		
-		//PATH 2 
+
+		// PATH 2
 		posX[2][0] = 730;
 		posY[2][0] = 730;
 		posX[2][1] = 730;
@@ -416,8 +454,8 @@ public class Board extends Pane {
 		posY[2][30] = 685;
 		posX[2][31] = 740;
 		posY[2][31] = 735;
-		
-		//PATH 3 
+
+		// PATH 3
 		posX[3][0] = 730;
 		posY[3][0] = 730;
 		posX[3][1] = 730;
@@ -513,10 +551,9 @@ public class Board extends Pane {
 		posX[3][46] = 740;
 		posY[3][46] = 735;
 	}
-	
+
 	public void getHorseLocation(int id) {
 		int location = mGm.getPlayers()[id].getHorse().getLocation();
 	}
-	
-	
+
 }

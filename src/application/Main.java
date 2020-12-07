@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -83,6 +84,28 @@ public class Main extends Application{
 			playerNum = 4;
 			typeName();
 		});
+		
+		Button help = new Button("Descripion");
+		help.setStyle("-fx-font-size: 20");
+		help.setLayoutX(440);
+		help.setLayoutY(300);
+		help.setOnAction(e -> {
+
+			String Description = "Boost tile: move the horse extra tiles" +"\n"+
+							  "Obstacle: Skip one turn to roll the dice"+"\n"+
+					          "Caught by other horses: Go to starting line(Be careful!)"+"\n"+
+							  "RocketMan skill: move extra 1.5times of boost tile."+"\n"+
+					          "Invisible: Never get caught by others"+"\n"+
+							  "Unstoppalbe: Obstacle can't stop your horse. ";
+
+			Alert popup = new Alert(Alert.AlertType.INFORMATION, Description, ButtonType.OK);
+
+			popup.setHeaderText("Description");
+			popup.setTitle("Help");
+			popup.showAndWait();
+
+		});
+		firstPane.getChildren().add(help);
 		
 		
 		

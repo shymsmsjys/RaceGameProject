@@ -75,10 +75,13 @@ public class Player {
 				System.out.println("Path changed to Path2");
 			}
 		}
+		
+		System.out.println("Path = " + path);
 	}
 	// Horse caught and go to starting line
 	public void Caught() {
-		shortCut(0);
+		horse.setLocation(0);
+		path = 0;
 		System.out.println("Player" + id +": "+ name + " is caught. Go to starting line");
 	}
 	// Boost tile number give extra move to Horse
@@ -100,7 +103,7 @@ public class Player {
 	}
 	// Check the state of horse finish or not
 	public void check() {
-		if (horse.getLocation() > goal[path]) {
+		if (horse.getLocation() >= goal[path]) {
 			setFinish();
 			System.out.println("Player" + id + ": "+ name + " is finished");
 		}

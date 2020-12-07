@@ -29,6 +29,9 @@ public class Horse {
 	
 	public void updateLocation(int num) {
 		location += num;
+		if(location >= 61) {
+			location = 61;
+		}
 		System.out.println("horse location is "+ location);
 	}
 }

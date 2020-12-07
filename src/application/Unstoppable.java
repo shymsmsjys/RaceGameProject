@@ -13,7 +13,7 @@ public class Unstoppable extends Player{
 	public Unstoppable(int id, String name) {
 		super(id, name);
 		// TODO Auto-generated constructor stub
-		System.out.println("player"+id+ ":"+ " is assigned with Unstoppable skill");
+		System.out.println(name + " is assigned with Unstoppable skill");
 	}
 	
 	@Override
